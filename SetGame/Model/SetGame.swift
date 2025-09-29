@@ -152,41 +152,22 @@ struct SetGame {
     }
     
     private mutating func unChooseAllCards() {
-        falsifyAllCards(forStateNamed: "isChosen")
+        resetCards(at: \Card.isChosen)
     }
     
     private mutating func unMatchAllCards() {
-        falsifyAllCards(forStateNamed: "isMatched")
+        resetCards(at: \Card.isMatched)
     }
     
     private mutating func unFaceUpAllCards() {
-        falsifyAllCards(forStateNamed: "isFaceUp")
+        resetCards(at: \Card.isFaceUp)
     }
     
-    private mutating func falsifyAllCards(forStateNamed name: String) {
+    private mutating func resetCards(at keyPath: WritableKeyPath<Card, Bool>) {
         cards.indices.forEach { index in
-            if let state = getCardState(named: name, at: index), state == true {
-                setToFalse(cardStateNamed: name, at: index)
-                print("      Toggled \(cards[index]).\(name) to", getCardState(named: name, at: index) ?? "??")
+            if cards[index][keyPath: keyPath] {
+                cards[index][keyPath: keyPath] = false
             }
-        }
-    }
-    
-    private func getCardState(named name: String, at index: Int) -> Bool? {
-        switch name {
-        case "isFaceUp": cards[index].isFaceUp
-        case "isChosen": cards[index].isChosen
-        case "isMatched": cards[index].isMatched
-        default: nil
-        }
-    }
-    
-    private mutating func setToFalse(cardStateNamed name: String, at index: Int) {
-        switch name {
-        case "isFaceUp": cards[index].isFaceUp = false
-        case "isChosen": cards[index].isChosen = false
-        case "isMatched": cards[index].isMatched = false
-        default: print("no state with name \(name)")
         }
     }
     
@@ -211,7 +192,7 @@ struct SetGame {
         }
         
         var n: Int {
-            number == .one ? 1 : number == .two ? 2 : 3
+            number.rawValue
         }
         
         var id: String {

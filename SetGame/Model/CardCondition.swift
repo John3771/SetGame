@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum NumberOfShapes: CaseIterable {
-    case one
+enum NumberOfShapes: Int, CaseIterable {
+    case one = 1
     case two
     case three
 }
@@ -21,7 +21,8 @@ enum TypeOfShape: CaseIterable {
 
 enum Shading: CaseIterable {
     case solid
-    case striped
+    case color
+//    case striped
     case open
 }
 

@@ -21,7 +21,7 @@ struct ShapeSetGameView: View {
                     AnimationForNewSetSelection(isGoodSet: viewModel.chosenCardsAreASet)
                 }
             VStack {
-                HStack {
+                HStack(alignment: .bottom/*, spacing: Constants.controlsSpacing*/) {
                     deck
                     VStack {
                         newGameButton
@@ -67,10 +67,6 @@ struct ShapeSetGameView: View {
     
     private func isDealt(_ card: Card) -> Bool {
         dealt.contains(card.id)
-    }
-    
-    private var undealtCards: [Card] {
-        viewModel.cards.filter { !isDealt($0) }
     }
     
     private var visibleCards: some View {
@@ -184,7 +180,6 @@ struct ShapeSetGameView: View {
     // MARK: Constants
     
     private struct Constants {
-        static let buttonSpacing: CGFloat = 16
         static let aspectRatio: CGFloat = 2/3
         static let paddingAroundCards: CGFloat = 4
         static let deckAndDiscardWidth: CGFloat = 60

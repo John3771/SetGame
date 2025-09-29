@@ -67,8 +67,8 @@ struct CardView: View {
     private var cardFill: Color {
         switch card.shading {
         case .solid: color
-        case .striped: color.opacity(0.25)
-        case .open: Color.white
+        case .color: color.opacity(0.25)
+        case .open: .white
         }
     }
     
@@ -81,5 +81,5 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(SetGame.Card(.three, .diamond, .striped, .green, isFaceUp: true))
+    CardView(SetGame.Card(.three, .diamond, .color, .green, isFaceUp: true))
 }

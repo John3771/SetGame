@@ -44,15 +44,13 @@ struct Cardify: ViewModifier {
                         content
                     }
                     .opacity(isFaceUp ? 1 : 0)
-                base.fill()
+                base.fill(.secondary)
                     .opacity(isFaceUp ? 0 : 1)
             }
             .rotation3DEffect(.degrees(rotation), axis: (0, 1, 0))
             .rotation3DEffect(.degrees(isSelected ? 10 : 0), axis: (-1, 0, 0))
         }
     }
-    
-    
     
     private struct Constants {
         static let lineWidthRatio: CGFloat = 0.01
