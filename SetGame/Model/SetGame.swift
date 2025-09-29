@@ -63,18 +63,11 @@ struct SetGame {
     }
     
     mutating func deal3() {
-//        if deck.isEmpty {
-//            return
-//        }
-        // If it is a set, then toggle the cards to be matched, and replace in the deck
         if chosenCards.isSet {
             print("Tapped deck while chosenCards is a complete set!")
             replaceGoodSetWithNewCards()
         } else {
             print("Tapped deck while chosenCards is not a complete set")
-//            for _ in 0 ..< 3 {
-//                dealNextCard()
-//            }
         }
         
         guard !deck.isEmpty else { return }
@@ -97,16 +90,6 @@ struct SetGame {
             }
         }
     }
-    
-//    private mutating func discardGoodSet() {
-//        chosenIndices.forEach { index in
-//            cards[index].isMatched = true
-//            print("      Toggled \(cards[index]).isMatched to \(cards[index].isMatched )")
-//            if let indexInVisibleCards = visibleCards.firstIndex(of: cards[index]) {
-//                visibleCardIndices.remove(at: indexInVisibleCards)
-//            }
-//        }
-//    }
     
     private mutating func dealNextCard() {
         if let indexOfNextCardInDeck {
@@ -147,26 +130,21 @@ struct SetGame {
     mutating func choose(_ card: Card) {
         print("User chose card \(card)")
         if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }) {
-            // This is the first new card selected after three were already selected,
-            // handle if it is a set, then deselect everything that has been tapped to this point
             if chosenCards.count == 3 {
                 print("  Three cards were already selected")
                 if chosenCards.isSet {
                     print("    Found a complete set!")
-//                    discardGoodSet()
                     replaceGoodSetWithNewCards()
                 }
                 unChooseAllCards()
             }
             
-            // This is a card that was tapped before a count of three was reached, choose or unchoose it
             if cards[chosenIndex].isFaceUp, chosenCards.count <= 3, !cards[chosenIndex].isMatched {
                 cards[chosenIndex].isChosen.toggle()
                 print("  Toggled isChosen to \(cards[chosenIndex].isChosen)")
             }
             print("  chosenCards.count = \(chosenCards.count)")
 
-            // This is here for debugging, if a bad set is selected, print to the console "why?" it is bad
             if chosenCards.countIsValid && !chosenCards.isSet {
                 chosenCards.printWhyTheSetFailed()
             }

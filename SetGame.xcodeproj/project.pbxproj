@@ -106,18 +106,14 @@
 		8A1D2C992B5BEBC0006C8922 /* SetGame */ = {
 			isa = PBXGroup;
 			children = (
-				8A1D2C9A2B5BEBC0006C8922 /* SetGameApp.swift */,
+				AAAFA3C92E8B3508006C43F3 /* App */,
 				8A1D2C9C2B5BEBC0006C8922 /* ShapeSetGameView.swift */,
-				8A1D2CCC2B5D4FAE006C8922 /* AspectVGrid.swift */,
-				8A1D2CC82B5BF34F006C8922 /* CardView.swift */,
-				8AD8D1732B7E832100C39422 /* Striped.swift */,
+				AAAFA3CC2E8B3755006C43F3 /* View */,
+				AAAFA3CA2E8B3530006C43F3 /* Model */,
 				8A1D2CD82B5F1B15006C8922 /* Cardify.swift */,
-				8A1D2CD42B5EF469006C8922 /* Diamond.swift */,
-				8A1D2CD62B5EF6B8006C8922 /* Squiggle.swift */,
+				AAAFA3C82E8B3308006C43F3 /* Shapes */,
 				8A1D2CCA2B5D4BC1006C8922 /* CardCondition.swift */,
-				8A1D2CC42B5BEFF6006C8922 /* SetGame.swift */,
-				8AD8D1752B83C12900C39422 /* AnimationForNewSetSelection.swift */,
-				8A1D2CC62B5BF084006C8922 /* ShapeSetGame.swift */,
+				AAAFA3CB2E8B3639006C43F3 /* ViewModel */,
 				8A1D2C9E2B5BEBC2006C8922 /* Assets.xcassets */,
 				8A1D2CA02B5BEBC2006C8922 /* Preview Content */,
 			);
@@ -130,6 +126,50 @@
 				8A1D2CA12B5BEBC2006C8922 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AAAFA3C82E8B3308006C43F3 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				8A1D2CD42B5EF469006C8922 /* Diamond.swift */,
+				8A1D2CD62B5EF6B8006C8922 /* Squiggle.swift */,
+				8AD8D1732B7E832100C39422 /* Striped.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		AAAFA3C92E8B3508006C43F3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8A1D2C9A2B5BEBC0006C8922 /* SetGameApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AAAFA3CA2E8B3530006C43F3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8A1D2CC42B5BEFF6006C8922 /* SetGame.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AAAFA3CB2E8B3639006C43F3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8A1D2CC62B5BF084006C8922 /* ShapeSetGame.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AAAFA3CC2E8B3755006C43F3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A1D2CCC2B5D4FAE006C8922 /* AspectVGrid.swift */,
+				8AD8D1752B83C12900C39422 /* AnimationForNewSetSelection.swift */,
+				8A1D2CC82B5BF34F006C8922 /* CardView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

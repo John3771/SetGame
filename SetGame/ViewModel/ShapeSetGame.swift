@@ -11,7 +11,6 @@ class ShapeSetGame: ObservableObject {
     @Published private var model = createSetGame()
     
     private static func createSetGame() -> SetGame {
-//        return SetGame()
         var game = SetGame()
         game.deal()
         return game
