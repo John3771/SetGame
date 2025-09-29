@@ -23,16 +23,15 @@ struct ShapeSetGameView: View {
             VStack {
                 HStack {
                     deck
-                    Spacer()
+                    VStack {
+                        newGameButton
+                        shuffleButton
+                    }
+                    deal3MoreCardsButton
                     discarded
                 }
                 .padding(.horizontal)
-                HStack() {
-                    newGameButton
-                    shuffleButton
-                    deal3MoreCardsButton
-                }
-                .glassEffect(.clear)
+//                .glassEffect(.clear)
             }
         }
         .padding()
