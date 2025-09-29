@@ -107,12 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				AAAFA3C92E8B3508006C43F3 /* App */,
-				8A1D2C9C2B5BEBC0006C8922 /* ShapeSetGameView.swift */,
 				AAAFA3CC2E8B3755006C43F3 /* View */,
 				AAAFA3CA2E8B3530006C43F3 /* Model */,
-				8A1D2CD82B5F1B15006C8922 /* Cardify.swift */,
-				AAAFA3C82E8B3308006C43F3 /* Shapes */,
-				8A1D2CCA2B5D4BC1006C8922 /* CardCondition.swift */,
 				AAAFA3CB2E8B3639006C43F3 /* ViewModel */,
 				8A1D2C9E2B5BEBC2006C8922 /* Assets.xcassets */,
 				8A1D2CA02B5BEBC2006C8922 /* Preview Content */,
@@ -150,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				8A1D2CC42B5BEFF6006C8922 /* SetGame.swift */,
+				8A1D2CCA2B5D4BC1006C8922 /* CardCondition.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -165,11 +162,38 @@
 		AAAFA3CC2E8B3755006C43F3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AAAFA3CE2E8B397C006C43F3 /* Components */,
+				AAAFA3C82E8B3308006C43F3 /* Shapes */,
+				AAAFA3CF2E8B3998006C43F3 /* Modifier */,
+				AAAFA3CD2E8B3933006C43F3 /* Screen */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AAAFA3CD2E8B3933006C43F3 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				8A1D2C9C2B5BEBC0006C8922 /* ShapeSetGameView.swift */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		AAAFA3CE2E8B397C006C43F3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
 				8A1D2CCC2B5D4FAE006C8922 /* AspectVGrid.swift */,
 				8AD8D1752B83C12900C39422 /* AnimationForNewSetSelection.swift */,
 				8A1D2CC82B5BF34F006C8922 /* CardView.swift */,
 			);
-			path = View;
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AAAFA3CF2E8B3998006C43F3 /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				8A1D2CD82B5F1B15006C8922 /* Cardify.swift */,
+			);
+			path = Modifier;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
