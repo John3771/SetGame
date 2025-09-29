@@ -20,23 +20,30 @@ struct ShapeSetGameView: View {
                 .overlay {
                     AnimationForNewSetSelection(isGoodSet: viewModel.chosenCardsAreASet)
                 }
-            HStack {
-                deck
-                Spacer()
-                VStack(spacing: Constants.buttonSpacing) {
+            VStack {
+                HStack {
+                    deck
+                    Spacer()
+                    discarded
+                }
+                .padding(.horizontal)
+                HStack() {
                     newGameButton
                     shuffleButton
+                    deal3MoreCardsButton
                 }
-                Spacer()
-                discarded
+                .glassEffect(.clear)
             }
         }
         .padding()
+        .onAppear {
+            animateNewlyDealtCards()
+        }
     }
     
-//    var highlightedCardAccentColor: Color {
-//        !viewModel.chosenCards.countIsValid ? .yellow : viewModel.chosenCards.isSet ? .green : .red
-//    }
+    var highlightedCardAccentColor: Color {
+        !viewModel.chosenCards.countIsValid ? .yellow : viewModel.chosenCards.isSet ? .green : .red
+    }
     
     private var deck: some View {
         VStack {
@@ -45,9 +52,13 @@ struct ShapeSetGameView: View {
         }
         .onTapGesture {
             if viewModel.visibleCards.isEmpty {
-                viewModel.deal()
+                withAnimation {
+                    viewModel.deal()
+                }
             } else {
-                viewModel.deal3()
+                withAnimation {
+                    viewModel.deal3()
+                }
             }
             animateNewlyDealtCards()
         }
@@ -71,7 +82,7 @@ struct ShapeSetGameView: View {
             if isDealt(card) {
                 CardView(card)
                     .padding(Constants.paddingAroundCards)
-//                    .accentColor(highlightedCardAccentColor)
+                    .accentColor(highlightedCardAccentColor)
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .transition(.asymmetric(insertion: .identity, removal: .identity))
                     .matchedGeometryEffect(id: card.id, in: discardingNamespace)
@@ -110,7 +121,7 @@ struct ShapeSetGameView: View {
         ZStack {
             ForEach(cards) { card in
                 CardView(card)
-//                    .accentColor(highlightedCardAccentColor)
+                    .accentColor(highlightedCardAccentColor)
                     .matchedGeometryEffect(id: card.id, in: namespace)
             }
         }
@@ -135,24 +146,40 @@ struct ShapeSetGameView: View {
     // MARK: Buttons
     
     private var newGameButton: some View {
-        Button("New Game") {
+        Button("NG") {
             withAnimation {
                 viewModel.newGame()
                 dealt = []
             }
+            animateNewlyDealtCards()
         }
         .font(.title2)
         .buttonStyle(.borderedProminent)
+        .glassEffect()
     }
     
     private var shuffleButton: some View {
-        Button("Shuffle") {
+        Button(action: {
             withAnimation {
                 viewModel.shuffle()
             }
+        }, label: {
+            Image(systemName: "shuffle")
+        })
+        .font(.title2)
+        .buttonStyle(.bordered)
+    }
+    
+    private var deal3MoreCardsButton: some View {
+        Button("Deal 3 more cards") {
+            withAnimation {
+                viewModel.deal3()
+            }
+            animateNewlyDealtCards()
         }
         .font(.title2)
         .buttonStyle(.bordered)
+        .disabled(viewModel.deck.isEmpty)
     }
     
     // MARK: Constants

@@ -49,6 +49,7 @@ struct SetGame {
         unMatchAllCards()
         unFaceUpAllCards()
         visibleCardIndices = []
+        deal()
     }
     
     mutating func shuffle() {
@@ -62,18 +63,24 @@ struct SetGame {
     }
     
     mutating func deal3() {
-        if deck.isEmpty {
-            return
-        }
+//        if deck.isEmpty {
+//            return
+//        }
         // If it is a set, then toggle the cards to be matched, and replace in the deck
         if chosenCards.isSet {
             print("Tapped deck while chosenCards is a complete set!")
             replaceGoodSetWithNewCards()
         } else {
             print("Tapped deck while chosenCards is not a complete set")
-            for _ in 0 ..< 3 {
-                dealNextCard()
-            }
+//            for _ in 0 ..< 3 {
+//                dealNextCard()
+//            }
+        }
+        
+        guard !deck.isEmpty else { return }
+        
+        for _ in 0..<3 {
+            dealNextCard()
         }
     }
     
@@ -91,15 +98,15 @@ struct SetGame {
         }
     }
     
-    private mutating func discardGoodSet() {
-        chosenIndices.forEach { index in
-            cards[index].isMatched = true
-            print("      Toggled \(cards[index]).isMatched to \(cards[index].isMatched )")
-            if let indexInVisibleCards = visibleCards.firstIndex(of: cards[index]) {
-                visibleCardIndices.remove(at: indexInVisibleCards)
-            }
-        }
-    }
+//    private mutating func discardGoodSet() {
+//        chosenIndices.forEach { index in
+//            cards[index].isMatched = true
+//            print("      Toggled \(cards[index]).isMatched to \(cards[index].isMatched )")
+//            if let indexInVisibleCards = visibleCards.firstIndex(of: cards[index]) {
+//                visibleCardIndices.remove(at: indexInVisibleCards)
+//            }
+//        }
+//    }
     
     private mutating func dealNextCard() {
         if let indexOfNextCardInDeck {
@@ -146,7 +153,8 @@ struct SetGame {
                 print("  Three cards were already selected")
                 if chosenCards.isSet {
                     print("    Found a complete set!")
-                    discardGoodSet()
+//                    discardGoodSet()
+                    replaceGoodSetWithNewCards()
                 }
                 unChooseAllCards()
             }
