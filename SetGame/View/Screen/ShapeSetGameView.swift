@@ -21,7 +21,7 @@ struct ShapeSetGameView: View {
                     AnimationForNewSetSelection(isGoodSet: viewModel.chosenCardsAreASet)
                 }
             VStack {
-                HStack(alignment: .bottom/*, spacing: Constants.controlsSpacing*/) {
+                HStack(alignment: .bottom, spacing: Constants.controlsSpacing) {
                     deck
                     VStack {
                         newGameButton
@@ -31,7 +31,6 @@ struct ShapeSetGameView: View {
                     discarded
                 }
                 .padding(.horizontal)
-//                .glassEffect(.clear)
             }
         }
         .padding()
@@ -45,10 +44,10 @@ struct ShapeSetGameView: View {
     }
     
     private var deck: some View {
-        VStack {
+        controlTile(label: "Deck") {
             stackOfCards(viewModel.deck, namespace: dealingNamespace, withCount: true)
-            textBelowStackOfCards("Deck")
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             if viewModel.visibleCards.isEmpty {
                 withAnimation {
@@ -106,9 +105,24 @@ struct ShapeSetGameView: View {
     }
     
     private var discarded: some View {
-        VStack {
+        controlTile(label: "Discard") {
             stackOfCards(viewModel.discarded, namespace: discardingNamespace)
-            textBelowStackOfCards("Discard")
+        }
+    }
+    
+    private var actionButton: some View {
+        controlTile(padding: Constants.controlContentPadding) {
+            VStack(spacing: Constants.controlInnerSpacing) {
+                newGameButton
+                shuffleButton
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+    
+    private var deal3MoreCardsTile: some View {
+        controlTile(padding: Constants.controlContentPadding) {
+            deal3MoreCardsButton
         }
     }
     
@@ -121,8 +135,8 @@ struct ShapeSetGameView: View {
             }
         }
         .frame(
-            width: Constants.deckAndDiscardWidth,
-            height: Constants.deckAndDiscardWidth / Constants.aspectRatio
+            width: Constants.controlSize.width,
+            height: Constants.controlSize.height
         )
         .overlay {
             if withCount {
@@ -151,6 +165,7 @@ struct ShapeSetGameView: View {
         .font(.title2)
         .buttonStyle(.borderedProminent)
         .glassEffect()
+        .frame(maxWidth: .infinity)
     }
     
     private var shuffleButton: some View {
@@ -163,6 +178,7 @@ struct ShapeSetGameView: View {
         })
         .font(.title2)
         .buttonStyle(.bordered)
+        .frame(maxWidth: .infinity)
     }
     
     private var deal3MoreCardsButton: some View {
@@ -175,6 +191,25 @@ struct ShapeSetGameView: View {
         .font(.title2)
         .buttonStyle(.bordered)
         .disabled(viewModel.deck.isEmpty)
+        .frame(minWidth: .infinity, minHeight: .infinity)
+        .multilineTextAlignment(.center)
+        .lineLimit(2)
+        .minimumScaleFactor(0.5)
+    }
+    
+    private func controlTile<Content: View>(label: String? = nil, padding: CGFloat = 0, @ViewBuilder content: () -> Content) -> some View {
+        VStack(spacing: Constants.controlLabelSpacing) {
+            ZStack {
+                content()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(padding)
+            }
+            .frame(width: Constants.controlSize.width, height: Constants.controlSize.height)
+            
+            if let label {
+                textBelowStackOfCards(label)
+            }
+        }
     }
     
     // MARK: Constants
@@ -183,6 +218,11 @@ struct ShapeSetGameView: View {
         static let aspectRatio: CGFloat = 2/3
         static let paddingAroundCards: CGFloat = 4
         static let deckAndDiscardWidth: CGFloat = 60
+        static let controlSize = CGSize(width: deckAndDiscardWidth, height: deckAndDiscardWidth / aspectRatio)
+        static let controlLabelSpacing: CGFloat = 8
+        static let controlInnerSpacing: CGFloat = 8
+        static let controlsSpacing: CGFloat = 16
+        static let controlContentPadding: CGFloat = 12
         static let dealInterval: TimeInterval = 0.15
         static let dealAnimation: Animation = .easeInOut(duration: 0.5)
     }
