@@ -231,7 +231,7 @@ extension [SetGame.Card] {
     }
     
     func printWhyTheSetFailed() {
-        print("    The selected cards are not a correct set")
+        print("      The selected cards are not a correct set")
         print("      countIsValid = \(countIsValid)")
         print("      numberCanMakeValidSet = \(numberCanMakeValidSet)")
         print("      typeOfShapeCanMakeValidSet = \(typeOfShapeCanMakeValidSet)")

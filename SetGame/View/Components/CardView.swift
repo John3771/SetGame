@@ -68,7 +68,7 @@ struct CardView: View {
         switch card.shading {
         case .solid: color
         case .color: color.opacity(0.25)
-        case .open: .white
+        case .open: .clear
         }
     }
     

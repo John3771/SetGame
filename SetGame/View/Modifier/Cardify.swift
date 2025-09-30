@@ -34,8 +34,8 @@ struct Cardify: ViewModifier {
                 let base = RoundedRectangle(
                     cornerRadius: Constants.roundingRatio * geometry.size.width
                 )
-                base.strokeBorder(lineWidth: Constants.lineWidthRatio * geometry.size.width)
-                    .background(base.fill(.white))
+                base.strokeBorder(Color.orange, lineWidth: Constants.lineWidth * geometry.size.width)
+                    .background(base.fill(.white.opacity(0.4)))
                     .shadow(
                         color: isSelected ? .accentColor : .clear,
                         radius: isSelected ? Constants.shadowRadiusRatio * geometry.size.width : 0
@@ -47,17 +47,15 @@ struct Cardify: ViewModifier {
                 base.fill(.secondary)
                     .opacity(isFaceUp ? 0 : 1)
             }
-            .rotation3DEffect(.degrees(rotation), axis: (0, 1, 0))
-            .rotation3DEffect(.degrees(isSelected ? 10 : 0), axis: (-1, 0, 0))
         }
     }
     
     private struct Constants {
-        static let lineWidthRatio: CGFloat = 0.01
+        static let lineWidth: CGFloat = 0.035
         static let aspectRatio: CGFloat = 2
         static let roundingRatio = 0.175
         static let spacingRatio = 0.1
-        static let shadowRadiusRatio: CGFloat = 0.05
+        static let shadowRadiusRatio: CGFloat = 0.02
     }
 }
 
