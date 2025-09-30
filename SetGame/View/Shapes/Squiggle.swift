@@ -9,9 +9,9 @@ import SwiftUI
 
 struct Squiggle: Shape {
     func path(in rect: CGRect) -> Path {
-        let oneQuarterX = rect.minX + Constants.xOffsetRatio * (rect.maxX - rect.minX)
+        let oneQuarterX =   rect.minX + Constants.xOffsetRatio * (rect.maxX - rect.minX)
         let threeQuarterX = rect.minX + (1 - Constants.xOffsetRatio) * (rect.maxX - rect.minX)
-        let oneQuarterY = rect.minY + Constants.yOffsetRatio * (rect.maxY - rect.minY)
+        let oneQuarterY =   rect.minY + Constants.yOffsetRatio * (rect.maxY - rect.minY)
         let threeQuarterY = rect.minY + (1 - Constants.yOffsetRatio) * (rect.maxY - rect.minY)
         
         var p = Path()

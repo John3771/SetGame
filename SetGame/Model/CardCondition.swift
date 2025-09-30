@@ -22,7 +22,6 @@ enum TypeOfShape: CaseIterable {
 enum Shading: CaseIterable {
     case solid
     case color
-//    case striped
     case open
 }
 

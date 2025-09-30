@@ -37,7 +37,7 @@ struct CardView: View {
         GeometryReader { geometry in
             switch card.typeOfShape {
             case .diamond:
-                Diamond()
+                DiamondShape()
                     .stroke(color, lineWidth: shapeStrokeLineWidth(for: card, with: geometry))
                     .fill(cardFill)
             case .squiggle:
