@@ -8,31 +8,30 @@
 import SwiftUI
 
 struct ShapeSetGameView: View {
+    typealias Card = SetGame.Card
     @ObservedObject var viewModel: ShapeSetGame
     
-    typealias Card = SetGame.Card
     @Namespace private var dealingNamespace
     @Namespace private var discardingNamespace
+    
+    // MARK: Screen
     
     var body: some View {
         VStack {
             visibleCards
-                .overlay {
-                    AnimationForNewSetSelection(isGoodSet: viewModel.chosenCardsAreASet)
-                }
-            VStack {
-                HStack() {
-                    deck
-                    VStack {
-                        newGameButton
-                        shuffleButton
-                    }
-                    deal3MoreCardsButton
-                    discarded
-                }
+            HStack() {
+                deck
+                Spacer()
+                newGameButton
+                shuffleButton
+                Spacer()
+                discarded
             }
+            .padding(.horizontal)
         }
         .padding()
+        .background(.orange.opacity(0.3))
+        .foregroundStyle(.orange)
         .onAppear {
             animateNewlyDealtCards()
         }
@@ -42,25 +41,6 @@ struct ShapeSetGameView: View {
         !viewModel.chosenCards.countIsValid ? .yellow : viewModel.chosenCards.isSet ? .green : .red
     }
     
-    private var deck: some View {
-        VStack {
-            stackOfCards(viewModel.deck, namespace: dealingNamespace, withCount: true)
-            textBelowStackOfCards("Deck")
-        }
-        .onTapGesture {
-            if viewModel.visibleCards.isEmpty {
-                withAnimation {
-                    viewModel.deal()
-                }
-            } else {
-                withAnimation {
-                    viewModel.deal3()
-                }
-            }
-            animateNewlyDealtCards()
-        }
-    }
-    
     @State private var dealt = [Card.ID]()
     
     private func isDealt(_ card: Card) -> Bool {
@@ -68,16 +48,13 @@ struct ShapeSetGameView: View {
     }
     
     private var visibleCards: some View {
-        AspectVGrid(
-            Array(viewModel.visibleCards),
-            aspectRatio: Constants.aspectRatio
-        ) { card in
+        AspectVGrid(viewModel.visibleCards,aspectRatio: Constants.aspectRatio) { card in
             if isDealt(card) {
                 CardView(card)
-                    .padding(Constants.paddingAroundCards)
-                    .accentColor(highlightedCardAccentColor)
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .transition(.asymmetric(insertion: .identity, removal: .identity))
+                    .padding(Constants.spacing)
+                    .accentColor(highlightedCardAccentColor)
                     .matchedGeometryEffect(id: card.id, in: discardingNamespace)
                     .onTapGesture {
                         withAnimation {
@@ -88,6 +65,9 @@ struct ShapeSetGameView: View {
             } else {
                 Color.clear
             }
+        }
+        .overlay {
+            FlyingNumber(isGoodSet: viewModel.chosenCardsAreASet)
         }
     }
     
@@ -100,13 +80,6 @@ struct ShapeSetGameView: View {
                 }
                 delay += Constants.dealInterval
             }
-        }
-    }
-    
-    private var discarded: some View {
-        VStack {
-            stackOfCards(viewModel.discarded, namespace: discardingNamespace)
-            textBelowStackOfCards("Discard")
         }
     }
     
@@ -132,11 +105,26 @@ struct ShapeSetGameView: View {
         }
     }
     
-    func textBelowStackOfCards(_ text: String) -> some View {
-        Text(text).font(.headline)
-    }
-    
     // MARK: Buttons
+    
+    private var deck: some View {
+        VStack {
+            stackOfCards(viewModel.deck, namespace: dealingNamespace, withCount: true)
+            Text("Deck")
+        }
+        .onTapGesture {
+            if viewModel.visibleCards.isEmpty {
+                withAnimation {
+                    viewModel.deal()
+                }
+            } else {
+                withAnimation {
+                    viewModel.deal3()
+                }
+            }
+            animateNewlyDealtCards()
+        }
+    }
     
     private var newGameButton: some View {
         Button("NG") {
@@ -147,8 +135,7 @@ struct ShapeSetGameView: View {
             animateNewlyDealtCards()
         }
         .font(.title2)
-        .buttonStyle(.borderedProminent)
-        .glassEffect()
+        .buttonStyle(.glass)
     }
     
     private var shuffleButton: some View {
@@ -160,30 +147,24 @@ struct ShapeSetGameView: View {
             Image(systemName: "shuffle")
         })
         .font(.title2)
-        .buttonStyle(.bordered)
+        .buttonStyle(.glass)
     }
     
-    private var deal3MoreCardsButton: some View {
-        Button("Deal 3 more cards") {
-            withAnimation {
-                viewModel.deal3()
-            }
-            animateNewlyDealtCards()
+    private var discarded: some View {
+        VStack {
+            stackOfCards(viewModel.discarded, namespace: discardingNamespace)
+            Text("Discard")
         }
-        .font(.title2)
-        .buttonStyle(.bordered)
-        .disabled(viewModel.deck.isEmpty)
     }
     
     // MARK: Constants
     
     private struct Constants {
-        static let buttonSpacing: CGFloat = 16
         static let aspectRatio: CGFloat = 2/3
-        static let paddingAroundCards: CGFloat = 4
-        static let deckAndDiscardWidth: CGFloat = 60
+        static let spacing: CGFloat = 4
+        static let dealAnimation: Animation = .easeInOut(duration: 0.2)
         static let dealInterval: TimeInterval = 0.15
-        static let dealAnimation: Animation = .easeInOut(duration: 0.5)
+        static let deckAndDiscardWidth: CGFloat = 70
     }
 }
 

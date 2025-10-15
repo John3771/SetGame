@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnimationForNewSetSelection: View {
+struct FlyingNumber: View {
     let isGoodSet: Bool?
     
     @State private var offset: CGFloat = 0
@@ -16,11 +16,11 @@ struct AnimationForNewSetSelection: View {
         if let isGoodSet {
             Text(isGoodSet == true ? "Good Set" : "Bad Set")
                 .font(.largeTitle)
-                .foregroundColor(isGoodSet ? .green : .red)
+                .foregroundStyle(isGoodSet ? .green : .red)
                 .offset(x: 0, y: offset)
                 .opacity(offset != 0 ? 0 : 1)
                 .onAppear {
-                    withAnimation(.easeIn(duration: 0.8)) {
+                    withAnimation(.easeIn(duration: 1.8)) {
                         offset = !isGoodSet ? 200 : -200
                     }
                 }
@@ -32,5 +32,5 @@ struct AnimationForNewSetSelection: View {
 }
 
 #Preview {
-    AnimationForNewSetSelection(isGoodSet: true)
+        FlyingNumber(isGoodSet: false)
 }

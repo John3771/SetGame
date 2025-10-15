@@ -7,12 +7,16 @@
 
 import SwiftUI
 
-struct AspectVGrid<Item: Identifiable, ItemView: View>: View  {
+struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
     var items: [Item]
     var aspectRatio: CGFloat = 1
     var content: (Item) -> ItemView
     
-    init(_ items: [Item], aspectRatio: CGFloat, @ViewBuilder content: @escaping (Item) -> ItemView) {
+    init(
+        _ items: [Item],
+        aspectRatio: CGFloat,
+        @ViewBuilder content: @escaping (Item) -> ItemView
+    ) {
         self.items = items
         self.aspectRatio = aspectRatio
         self.content = content
@@ -31,10 +35,10 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View  {
                         .aspectRatio(aspectRatio, contentMode: .fit)
                 }
             }
-            .animation(.spring, value: items.count)
+            //            .animation(.spring, value: items.count)
         }
     }
-        
+    
     private func gridItemWidthThatFits(
         count: Int,
         size: CGSize,
@@ -55,12 +59,12 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View  {
     }
 }
 
-#Preview {
-    AspectVGrid(
-        ShapeSetGame().cards,
-        aspectRatio: 2/3
-    ) { card in
-        CardView(card)
-            .padding(4)
-    }
-}
+//#Preview {
+//    AspectVGrid(
+//        ShapeSetGame().cards,
+//        aspectRatio: 2/3
+//    ) { card in
+//        CardView(card)
+//            .padding(4)
+//    }
+//}
